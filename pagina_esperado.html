@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Ray Diffraction | Interdisciplinary Science</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #ed8936;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            background-color: var(--primary);
+            color: white;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .logo { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.025em; }
+
+        .nav-links { display: flex; gap: 0.5rem; height: 100%; }
+
+        .nav-item {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 0 0.75rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-item:hover { color: white; background: rgba(255,255,255,0.05); }
+        .nav-item.active { color: white; border-bottom-color: var(--accent); background: rgba(255,255,255,0.1); }
+
+        main { flex: 1; max-width: 1100px; margin: 1rem auto; padding: 0 1rem; width: 100%; }
+
+        header { text-align: center; margin-bottom: 1.5rem; }
+        header h1 { font-size: 2.2rem; color: var(--primary); margin-bottom: 0.25rem; }
+        header p { color: var(--text-muted); font-size: 1rem; }
+
+        .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+        }
+
+        h2 { font-size: 1.6rem; color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        h3 { font-size: 1.15rem; color: var(--secondary); margin: 1rem 0 0.5rem; }
+        p { margin-bottom: 1rem; text-align: justify; color: #4a5568; }
+        ul { margin-left: 1.5rem; margin-bottom: 1rem; color: #4a5568; }
+        li { margin-bottom: 0.25rem; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+
+        .media-container { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .placeholder {
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+            color: var(--text-muted);
+            font-weight: 500;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .math-card {
+            background: #fdfdfd;
+            border-left: 4px solid var(--secondary);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+        }
+
+        .math-formula {
+            font-size: 1.2rem;
+            color: var(--primary);
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 8px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .highlight-box {
+            background: #ebf8ff;
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid #bee3f8;
+            margin: 0.75rem 0;
+        }
+
+        .highlight-box strong { color: var(--primary); }
+
+        footer { margin-top: auto; padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+
+        @media (max-width: 968px) {
+            .grid { grid-template-columns: 1fr; gap: 1rem; }
+            nav { flex-direction: column; height: auto; padding: 0.5rem; }
+            .nav-links { margin-top: 0.5rem; width: 100%; overflow-x: auto; padding-bottom: 0.5rem; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">X-ray crystallography</div>
+        <div class="nav-links">
+            <a href="#" class="nav-item active" onclick="showTab(event, 'home')">General</a>
+            <a href="#" class="nav-item" onclick="showTab(event, 'fundamentals')">Interdisciplinary Fundamentals</a>
+            <a href="#" class="nav-item" onclick="showTab(event, 'tech')">Contributions</a>
+            <a href="#" class="nav-item" onclick="showTab(event, 'simulation')">Simulation</a>
+            <a href="#" class="nav-item" onclick="showTab(event, 'analysis')">Analysis</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Home Tab -->
+        <div id="home" class="tab-content active">
+            <header>
+                <h1>History and Discovery</h1>
+            </header>
+            
+            <div class="section-card">
+                <h2>The Origin of a Revolution</h2>
+                <div class="grid">
+                    <div>
+                        <p>The path toward X-ray diffraction began at the end of the 19th century and the beginning of the 20th. It was not a single discovery, but a chain of brilliance that allowed "seeing" for the first time the atomic structure of materials.</p>
+                        
+                        <h3>Fundamental Actors</h3>
+                        <ul>
+                            <li><strong>1895 - Wilhelm Röntgen:</strong> Discovers X-rays.</li>
+                            <li><strong>1912 - Max von Laue:</strong> Confirmed the wave nature of X-rays and the atomic structure of crystals.</li>
+                            <li><strong>1913 - The Braggs:</strong> Created <strong>Bragg's Law</strong>, allowing calculation of real atomic distances.</li>
+                        </ul>
+                    </div>
+                    <div class="media-container">
+                        <img src="../codigo/diapositiva1.jpg" alt="Pioneers of Crystallography" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);">
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Fundamentals of Physics</h3>
+                    <p>The technique takes advantage of the fact that the wavelength of X-rays is comparable to the space between atoms in a crystal. The constructive interference of these waves, described by Bragg's law, allows obtaining information about the ordered arrangement of atoms.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Merged Tab: Interdisciplinary Fundamentals -->
+        <div id="fundamentals" class="tab-content">
+            <div class="section-card">
+                <h2>Interdisciplinary Fundamentals</h2>
+                
+                <div class="grid">
+                    <!-- Biological and Chemical Part -->
+                    <div class="math-card">
+                        <h3>Biology and Chemistry</h3>
+                        <p><strong>The Structure of Life:</strong> XRD was key to solving the mystery of DNA. By crystallizing biological molecules, the exact position of each atom is determined.</p>
+                        <p><strong>Phase Differentiation:</strong> Distinguishes polymorphisms (same composition, different structure) such as graphite vs diamond.</p>
+                    </div>
+                    
+                    <!-- Physics and Mathematics Part (Image) -->
+                    <div class="media-container" style="text-align: center;">
+                        <img src="../braggs-law-xray-diffraction-crystal-260nw-2287289215.webp" alt="Bragg's Law Diagram" style="max-width: 100%; height: auto; border-radius: 8px; margin: 0.5rem 0;">
+                    </div>
+                </div>
+
+                <div class="math-card" style="border-left-color: var(--accent);">
+                    <h3 style="text-align: center;">Interplanar Distance Formula</h3>
+                    <div class="math-formula">
+                        \( d_{hkl} = \frac{a}{\sqrt{h^2 + k^2 + l^2}} \)
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="math-card">
+                        <h3>Bragg's Law</h3>
+                        <div class="math-formula">\( n\lambda = 2d \sin(\theta) \)</div>
+                        <ul style="font-size: 0.9rem;">
+                            <li><strong>n:</strong> Order of reflection.</li>
+                            <li><strong>λ:</strong> Wavelength.</li>
+                            <li><strong>d:</strong> Atomic distance.</li>
+                            <li><strong>θ:</strong> Angle of incidence.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="math-card">
+                        <h3>Molecular Geometry</h3>
+                        <p style="font-size: 0.9rem;">The laws of Sines and Cosines are used to calculate bond angles and distances in 3D space:</p>
+                        <div class="math-formula" style="font-size: 1rem; padding: 0.5rem;">
+                            \( \frac{a}{\sin(A)} = \frac{b}{\sin(B)} \) | \( c^2 = a^2 + b^2 - 2ab \cos(C) \)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Constructive Interference</h3>
+                    <p>Only when Bragg's Law is satisfied do the waves create a measurable intensity peak. <strong>Fun Fact:</strong> X-rays are used because their wavelength is so small that it can interact with the spacing between atoms.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contributions Tab -->
+        <div id="tech" class="tab-content">
+            <div class="section-card">
+                <h2>Technological Contributions</h2>
+                <div class="grid">
+                    <div>
+                        <h3>Medicine</h3>
+                        <p>Crucial for drug design (e.g., structure of the HIV virus).</p>
+                    </div>
+                    <div>
+                        <h3>Materials</h3>
+                        <p>Characterization of superconductors and semiconductors.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulation Tab -->
+        <div id="simulation" class="tab-content">
+            <div class="section-card">
+                <h2>Interactive Simulation</h2>
+                <p>Coming Soon: An interactive simulation to experiment with diffraction by adjusting parameters in real-time.</p>
+            </div>
+        </div>
+
+        <!-- Analysis Tab -->
+        <div id="analysis" class="tab-content">
+            <div class="section-card">
+                <h2>AI-Powered Analysis & Reflection</h2>
+                <p>Coming Soon: An advanced reflection module powered by <strong>Gemini AI</strong>. This feature will allow you to:</p>
+                <ul>
+                    <li><strong>Compare Predictions:</strong> Evaluate your initial mental image of atomic structures against the scientific reality revealed by diffraction data.</li>
+                    <li><strong>Expert Feedback:</strong> Receive real-time, pedagogical feedback from an AI "professor" on your understanding of Bragg's Law and crystal geometry.</li>
+                    <li><strong>Scored Evaluation:</strong> Get a detailed analysis of your insights, including strengths, areas for improvement, and key missing concepts.</li>
+                </ul>
+                <p>This interactive tool will bridge the gap between your intuition and mathematical results, providing a personalized learning experience.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Interdisciplinary Science Project | Based on XRD principles
+    </footer>
+
+    <script>
+        function showTab(event, tabId) {
+            event.preventDefault();
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
